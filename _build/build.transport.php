@@ -23,13 +23,13 @@ $tstart = $mtime;
 
 
 
-print '<pre>';
+//print '<pre>';
 require_once dirname(__FILE__). '/build.config.php'; 
 /*
  * Set log Params
  */
 $modx->setLogLevel(modX::LOG_LEVEL_INFO);
-$modx->setLogTarget('ECHO'); echo '<pre>'; flush();
+$modx->setLogTarget('ECHO'); /*echo '<pre>';*/ flush();
 
 $modx->loadClass('transport.modPackageBuilder','',false, true);
 
