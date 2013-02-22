@@ -21,15 +21,29 @@ $mtime= explode(" ", $mtime);
 $mtime= $mtime[1] + $mtime[0];
 $tstart = $mtime;
 
+/* define sources */
+$root = dirname(dirname(__FILE__)).'/';
+$sources = array(
+    'root' => $root,
+    'build' => $root . '_build/',
+    'data' => $root . '_build/data/',
+    'chunks' => $root.'assets/components/'.PKG_NAME_LOWER.'/elements/chunks/',
+    'templates' => $root.'assets/components/'.PKG_NAME_LOWER.'/elements/templates/',
+    'docs' => $root.'assets/components/'.PKG_NAME_LOWER.'/docs/',
+    'source_assets' => $root.'assets/components/'.PKG_NAME_LOWER,
+);
+unset($root);
 
+/* override with your own defines here (see build.config.sample.php) */
+require_once $sources['build'] . '/build.config.php';
+require_once MODX_CORE_PATH . 'model/modx/modx.class.php';
+require_once $sources['build'] . '/includes/functions.php';
 
-//print '<pre>';
-require_once dirname(__FILE__). '/build.config.php'; 
-/*
- * Set log Params
- */
+$modx= new modX();
+$modx->initialize('mgr');
+//echo '<pre>'; /* used for nice formatting of log messages */
 $modx->setLogLevel(modX::LOG_LEVEL_INFO);
-$modx->setLogTarget('ECHO'); /*echo '<pre>';*/ flush();
+$modx->setLogTarget('ECHO');
 
 $modx->loadClass('transport.modPackageBuilder','',false, true);
 
@@ -160,6 +174,7 @@ $modx->log(modX::LOG_LEVEL_INFO,'Packaged in resolvers.');
 
 flush();
 
+
 $builder->putVehicle($vehicle);
 
 /* now pack in the license file, readme and setup options */
@@ -183,5 +198,3 @@ $totalTime= sprintf("%2.4f s", $totalTime);
 $modx->log(modX::LOG_LEVEL_INFO,"\n<br />Package Built.<br />\nExecution time: {$totalTime}\n");
 
 exit ();
-
-?>
