@@ -48,7 +48,7 @@ $sources = array(
 unset($root);
  
 require_once MODX_CORE_PATH . 'model/modx/modx.class.php';
-require_once $sources['build'] . '/includes/functions.php';
+require_once $sources['build'] . 'includes/functions.php';
 
 $modx= new modX();
 $modx->initialize('mgr'); 
