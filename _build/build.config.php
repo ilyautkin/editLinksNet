@@ -3,13 +3,28 @@
 error_reporting(E_ALL ^E_NOTICE);
 ini_set('display_errors', true);
  
+ 
+define('MODX_BASE_PATH', dirname(dirname(dirname(__FILE__))) . '/');
+define('MODX_CORE_PATH', MODX_BASE_PATH . 'core/');
+define('MODX_MANAGER_PATH', MODX_BASE_PATH . 'manager/');
+define('MODX_CONNECTORS_PATH', MODX_BASE_PATH . 'connectors/');
+define('MODX_ASSETS_PATH', MODX_BASE_PATH . 'assets/');
+
+define('MODX_BASE_URL','/modx/');
+define('MODX_CORE_URL', MODX_BASE_URL . 'core/');
+define('MODX_MANAGER_URL', MODX_BASE_URL . 'manager/');
+define('MODX_CONNECTORS_URL', MODX_BASE_URL . 'connectors/');
+define('MODX_ASSETS_URL', MODX_BASE_URL . 'assets/');
+ 
+ 
+ 
 /*
  * Include MODX config
  */
-require_once dirname(dirname(__FILE__)).'/core/config/config.inc.php';
+require_once MODX_CORE_PATH . 'config/config.inc.php';
 
 /* define sources */
-$root = dirname(dirname(__FILE__)).'/'; 
+$root = MODX_BASE_PATH; 
 
 /*
  * Константы
