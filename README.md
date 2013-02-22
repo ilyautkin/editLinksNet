@@ -12,10 +12,10 @@ HAVE TO BE WRAPPED BY DIV WITH ID "CONTENT"!
 
 Example:
 
-<h1>[[*pagetitle]]</h1>
-<div id="content">
-  [[*content]]
-</div>
+&lt;h1&gt;[[*pagetitle]]&lt;/h1&gt;<br>
+&lt;div id="content"&gt;<br>
+&nbsp; [[*content]]<br>
+&lt;/div&gt;
 
 ------------
 
