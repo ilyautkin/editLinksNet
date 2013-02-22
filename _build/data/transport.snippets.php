@@ -2,7 +2,7 @@
 
 $snippets = array();
 
-
+/*
 $snippet= $modx->newObject('modSnippet');
 $snippet->fromArray(array(
     'name' => 'editLinksNet',
@@ -11,5 +11,5 @@ $snippet->fromArray(array(
 ),'',true,true);
 $snippets[] = $snippet;
 
-
+*/
 return $snippets;

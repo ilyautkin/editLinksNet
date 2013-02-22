@@ -2,7 +2,7 @@
 
 $chunks = array();
 
-
+/*
 $chunk = $modx->newObject('modChunk', array(
     'name'          =>  'editLinksNet',
     'description'   => '',
@@ -10,5 +10,5 @@ $chunk = $modx->newObject('modChunk', array(
 ));
 $chunks[] = $chunk;
  
-
+*/
 return $chunks;
