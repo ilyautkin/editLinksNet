@@ -106,16 +106,16 @@ $attr = array(
                     xPDOTransport::UPDATE_OBJECT => false,
                     xPDOTransport::UNIQUE_KEY => 'name',
                 ),
-'Plugins' => array(
-xPDOTransport::PRESERVE_KEYS => false,
-xPDOTransport::UPDATE_OBJECT => true,
-xPDOTransport::UNIQUE_KEY => 'name',
-),
-'PluginEvents' => array(
-xPDOTransport::PRESERVE_KEYS => true,
-xPDOTransport::UPDATE_OBJECT => false,
-xPDOTransport::UNIQUE_KEY => array('pluginid','event'),
-),
+				'Plugins' => array(
+				xPDOTransport::PRESERVE_KEYS => false,
+				xPDOTransport::UPDATE_OBJECT => true,
+				xPDOTransport::UNIQUE_KEY => 'name',
+				),
+				'PluginEvents' => array(
+				xPDOTransport::PRESERVE_KEYS => true,
+				xPDOTransport::UPDATE_OBJECT => false,
+				xPDOTransport::UNIQUE_KEY => array('pluginid','event'),
+				),
             ),
         ),
         'Templates' => array(
