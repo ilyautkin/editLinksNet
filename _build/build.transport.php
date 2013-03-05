@@ -35,8 +35,8 @@ require_once $sources['build'] . '/includes/functions.php';
 $modx= new modX();
 $modx->initialize('mgr');
 //echo '<pre>'; /* used for nice formatting of log messages */
-/*$modx->setLogLevel(modX::LOG_LEVEL_INFO);
-$modx->setLogTarget('ECHO');*/
+$modx->setLogLevel(modX::LOG_LEVEL_INFO);
+$modx->setLogTarget('ECHO');
 
 $modx->loadClass('transport.modPackageBuilder','',false, true);
 $builder = new modPackageBuilder($modx);
