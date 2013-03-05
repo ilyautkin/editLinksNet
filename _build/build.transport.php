@@ -35,8 +35,8 @@ require_once $sources['build'] . '/includes/functions.php';
 $modx= new modX();
 $modx->initialize('mgr');
 //echo '<pre>'; /* used for nice formatting of log messages */
-$modx->setLogLevel(modX::LOG_LEVEL_INFO);
-$modx->setLogTarget('ECHO');
+/*$modx->setLogLevel(modX::LOG_LEVEL_INFO);
+$modx->setLogTarget('ECHO');*/
 
 $modx->loadClass('transport.modPackageBuilder','',false, true);
 $builder = new modPackageBuilder($modx);
@@ -62,7 +62,7 @@ $modx->log(modX::LOG_LEVEL_INFO,'Packaged in '.count($templates).' templates.');
 /* add chunks */
 $chunks = include $sources['data'].'transport.chunks.php';
 if (!is_array($chunks)) {
-    $modx->log(modX::LOG_LEVEL_ERROR,'Could not package in chunks.');
+    //$modx->log(modX::LOG_LEVEL_ERROR,'Could not package in chunks.');
 } else {
     $category->addMany($chunks);
 }
@@ -70,7 +70,7 @@ if (!is_array($chunks)) {
 /* add plugins */
 $plugins = include $sources['data'].'transport.plugins.php';
 if (!is_array($plugins)) {
-$modx->log(modX::LOG_LEVEL_ERROR,'Adding plugins failed.'); }
+	//$modx->log(modX::LOG_LEVEL_ERROR,'Adding plugins failed.'); }
 else{
     $category->addMany($plugins);
 }
@@ -78,7 +78,7 @@ else{
 /* add snippets */
 $snippets = include $sources['data'].'transport.snippets.php';
 if (!is_array($snippets)) {
-    $modx->log(modX::LOG_LEVEL_ERROR,'Could not package in snippets.');
+    //$modx->log(modX::LOG_LEVEL_ERROR,'Could not package in snippets.');
 } else {
     $category->addMany($snippets);
 }
