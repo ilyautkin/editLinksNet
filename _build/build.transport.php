@@ -1,11 +1,11 @@
 <?php
-/*
+
 $mtime = microtime();
 $mtime = explode(' ', $mtime);
 $mtime = $mtime[1] + $mtime[0];
 $tstart = $mtime;
 set_time_limit(0);
-*/
+
 
 /* define package */
 define('PKG_NAME','editLinksNet');
@@ -42,7 +42,6 @@ $modx->loadClass('transport.modPackageBuilder','',false, true);
 $builder = new modPackageBuilder($modx);
 $builder->createPackage(PKG_NAME_LOWER,PKG_VERSION,PKG_RELEASE);
 $builder->registerNamespace(PKG_NAME_LOWER,false,true,'{core_path}components/'.PKG_NAME_LOWER.'/');
-$modx->log(modX::LOG_LEVEL_INFO,'Created Transport Package and Namespace.');
 
 /* create category */
 $category= $modx->newObject('modCategory');
@@ -66,7 +65,6 @@ if (!is_array($chunks)) {
     $modx->log(modX::LOG_LEVEL_ERROR,'Could not package in chunks.');
 } else {
     $category->addMany($chunks);
-    $modx->log(modX::LOG_LEVEL_INFO,'Packaged in '.count($chunks).' chunks.');
 }
 
 /* add plugins */ 
@@ -75,7 +73,6 @@ if (!is_array($plugins)) {
 	$modx->log(modX::LOG_LEVEL_ERROR,'Adding plugins failed.'); } 
 else{
     $category->addMany($plugins);
-    $modx->log(modX::LOG_LEVEL_INFO,'Packaged in '.count($plugins).' plugins.');
 }
 
 /* add snippets */
@@ -84,7 +81,6 @@ if (!is_array($snippets)) {
     $modx->log(modX::LOG_LEVEL_ERROR,'Could not package in snippets.');
 } else {
     $category->addMany($snippets);
-    $modx->log(modX::LOG_LEVEL_INFO,'Packaged in '.count($snippets).' snippets.');
 }
 
 /* create category vehicle */
@@ -146,7 +142,6 @@ $attr = array(
 );
 $vehicle = $builder->createVehicle($category,$attr);
 
-$modx->log(modX::LOG_LEVEL_INFO,'Adding file resolvers to category...');
 $vehicle->resolve('file',array(
     'source' => $sources['source_assets'],
     'target' => "return MODX_ASSETS_PATH . 'components/';",
@@ -162,19 +157,15 @@ $builder->setPackageAttributes(array(
         //'source' => $sources['build'].'setup.options.php',
     //),
 ));
-$modx->log(modX::LOG_LEVEL_INFO,'Added package attributes and setup options.');
 
 /* zip up package */
-$modx->log(modX::LOG_LEVEL_INFO,'Packing up transport package zip...');
 $builder->pack();
-/*
+
 $mtime= microtime();
 $mtime= explode(" ", $mtime);
 $mtime= $mtime[1] + $mtime[0];
 $tend= $mtime;
 $totalTime= ($tend - $tstart);
 $totalTime= sprintf("%2.4f s", $totalTime);
-*/
-$modx->log(modX::LOG_LEVEL_INFO,"\n<br />Package Built.<br />\nExecution time: {$totalTime}\n");
 
 exit ();
