@@ -52,10 +52,10 @@ $category->set('category',PKG_NAME);
 /*
 $templates = include $sources['data'].'transport.templates.php';
 if (!is_array($templates)) {
-    $modx->log(modX::LOG_LEVEL_ERROR,'Could not package in templates.');
+$modx->log(modX::LOG_LEVEL_ERROR,'Could not package in templates.');
 } else {
-    $category->addMany($templates);
-    $modx->log(modX::LOG_LEVEL_INFO,'Packaged in '.count($templates).' templates.');
+$category->addMany($templates);
+$modx->log(modX::LOG_LEVEL_INFO,'Packaged in '.count($templates).' templates.');
 }
 */
 
@@ -67,10 +67,10 @@ if (!is_array($chunks)) {
     $category->addMany($chunks);
 }
 
-/* add plugins */ 
+/* add plugins */
 $plugins = include $sources['data'].'transport.plugins.php';
 if (!is_array($plugins)) {
-	$modx->log(modX::LOG_LEVEL_ERROR,'Adding plugins failed.'); } 
+$modx->log(modX::LOG_LEVEL_ERROR,'Adding plugins failed.'); }
 else{
     $category->addMany($plugins);
 }
@@ -106,16 +106,16 @@ $attr = array(
                     xPDOTransport::UPDATE_OBJECT => false,
                     xPDOTransport::UNIQUE_KEY => 'name',
                 ),
-				'Plugins' => array(
-					xPDOTransport::PRESERVE_KEYS => false,
-					xPDOTransport::UPDATE_OBJECT => true,
-					xPDOTransport::UNIQUE_KEY => 'name',
-				),
-				'PluginEvents' => array(
-					xPDOTransport::PRESERVE_KEYS => true,
-					xPDOTransport::UPDATE_OBJECT => false,
-					xPDOTransport::UNIQUE_KEY => array('pluginid','event'),
-				),
+'Plugins' => array(
+xPDOTransport::PRESERVE_KEYS => false,
+xPDOTransport::UPDATE_OBJECT => true,
+xPDOTransport::UNIQUE_KEY => 'name',
+),
+'PluginEvents' => array(
+xPDOTransport::PRESERVE_KEYS => true,
+xPDOTransport::UPDATE_OBJECT => false,
+xPDOTransport::UNIQUE_KEY => array('pluginid','event'),
+),
             ),
         ),
         'Templates' => array(
