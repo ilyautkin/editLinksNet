@@ -1,11 +1,9 @@
 <?php
-
 $mtime = microtime();
 $mtime = explode(' ', $mtime);
 $mtime = $mtime[1] + $mtime[0];
 $tstart = $mtime;
 set_time_limit(0);
-
 
 /* define package */
 define('PKG_NAME','editLinksNet');
@@ -21,7 +19,6 @@ $sources = array(
     'data' => $root . '_build/data/',
     'chunks' => $root.'assets/components/'.PKG_NAME_LOWER.'/elements/chunks/',
     'templates' => $root.'assets/components/'.PKG_NAME_LOWER.'/elements/templates/',
-    'plugins' => $root.'assets/components/'.PKG_NAME_LOWER.'/elements/plugins/',
     'docs' => $root.'assets/components/'.PKG_NAME_LOWER.'/docs/',
     'source_assets' => $root.'assets/components/'.PKG_NAME_LOWER,
 );
@@ -42,49 +39,21 @@ $modx->loadClass('transport.modPackageBuilder','',false, true);
 $builder = new modPackageBuilder($modx);
 $builder->createPackage(PKG_NAME_LOWER,PKG_VERSION,PKG_RELEASE);
 $builder->registerNamespace(PKG_NAME_LOWER,false,true,'{core_path}components/'.PKG_NAME_LOWER.'/');
+$modx->log(modX::LOG_LEVEL_INFO,'Created Transport Package and Namespace.');
 
 /* create category */
 $category= $modx->newObject('modCategory');
 $category->set('id',1);
 $category->set('category',PKG_NAME);
 
-/* add templates */
-/*
-$templates = include $sources['data'].'transport.templates.php';
-if (!is_array($templates)) {
-$modx->log(modX::LOG_LEVEL_ERROR,'Could not package in templates.');
-} else {
-$category->addMany($templates);
-$modx->log(modX::LOG_LEVEL_INFO,'Packaged in '.count($templates).' templates.');
-}
-*/
-
-/* add chunks */
-/*
-$chunks = include $sources['data'].'transport.chunks.php';
-if (!is_array($chunks)) {
-    //$modx->log(modX::LOG_LEVEL_ERROR,'Could not package in chunks.');
-} else {
-    $category->addMany($chunks);
-}
-*/
 /* add plugins */
 $plugins = include $sources['data'].'transport.plugins.php';
 if (!is_array($plugins)) {
-	//$modx->log(modX::LOG_LEVEL_ERROR,'Adding plugins failed.'); }
+	$modx->log(modX::LOG_LEVEL_ERROR,'Could not package in plugins.');
 else{
     $category->addMany($plugins);
 }
 
-/* add snippets */
-/*
-$snippets = include $sources['data'].'transport.snippets.php';
-if (!is_array($snippets)) {
-    //$modx->log(modX::LOG_LEVEL_ERROR,'Could not package in snippets.');
-} else {
-    $category->addMany($snippets);
-}
-*/
 
 /* create category vehicle */
 $attr = array(
@@ -99,52 +68,23 @@ $attr = array(
             xPDOTransport::UNIQUE_KEY => 'category',
             xPDOTransport::RELATED_OBJECTS => true,
             xPDOTransport::RELATED_OBJECT_ATTRIBUTES => array (
-                'Templates' => array(
-                    xPDOTransport::PRESERVE_KEYS => false,
-                    xPDOTransport::UPDATE_OBJECT => false,
-                    xPDOTransport::UNIQUE_KEY => 'templatename',
-                ),
-                'Chunks' => array(
-                    xPDOTransport::PRESERVE_KEYS => false,
-                    xPDOTransport::UPDATE_OBJECT => false,
-                    xPDOTransport::UNIQUE_KEY => 'name',
-                ),
 				'Plugins' => array(
 				xPDOTransport::PRESERVE_KEYS => false,
 				xPDOTransport::UPDATE_OBJECT => true,
 				xPDOTransport::UNIQUE_KEY => 'name',
 				),
-				'PluginEvents' => array(
-				xPDOTransport::PRESERVE_KEYS => true,
-				xPDOTransport::UPDATE_OBJECT => false,
-				xPDOTransport::UNIQUE_KEY => array('pluginid','event'),
-				),
             ),
-        ),
-        'Templates' => array(
-            xPDOTransport::PRESERVE_KEYS => false,
-            xPDOTransport::UPDATE_OBJECT => false,
-            xPDOTransport::UNIQUE_KEY => 'templatename',
-        ),
-        'Chunks' => array (
-            xPDOTransport::PRESERVE_KEYS => false,
-            xPDOTransport::UPDATE_OBJECT => false,
-            xPDOTransport::UNIQUE_KEY => 'name',
         ),
         'Plugins' => array(
             xPDOTransport::PRESERVE_KEYS => false,
             xPDOTransport::UPDATE_OBJECT => true,
             xPDOTransport::UNIQUE_KEY => 'name',
         ),
-        'PluginEvents' => array(
-            xPDOTransport::PRESERVE_KEYS => true,
-            xPDOTransport::UPDATE_OBJECT => false,
-            xPDOTransport::UNIQUE_KEY => array('pluginid','event'),
-        ),
     ),
 );
 $vehicle = $builder->createVehicle($category,$attr);
 
+$modx->log(modX::LOG_LEVEL_INFO,'Adding file resolvers to category...');
 $vehicle->resolve('file',array(
     'source' => $sources['source_assets'],
     'target' => "return MODX_ASSETS_PATH . 'components/';",
@@ -160,8 +100,10 @@ $builder->setPackageAttributes(array(
         //'source' => $sources['build'].'setup.options.php',
     //),
 ));
+$modx->log(modX::LOG_LEVEL_INFO,'Added package attributes and setup options.');
 
 /* zip up package */
+$modx->log(modX::LOG_LEVEL_INFO,'Packing up transport package zip...');
 $builder->pack();
 
 $mtime= microtime();
@@ -169,6 +111,8 @@ $mtime= explode(" ", $mtime);
 $mtime= $mtime[1] + $mtime[0];
 $tend= $mtime;
 $totalTime= ($tend - $tstart);
-//$totalTime= sprintf("%2.4f s", $totalTime);
+$totalTime= sprintf("%2.4f s", $totalTime);
+
+$modx->log(modX::LOG_LEVEL_INFO,"\n<br />Package Built.<br />\nExecution time: {$totalTime}\n");
 
 exit ();
