@@ -60,13 +60,14 @@ $modx->log(modX::LOG_LEVEL_INFO,'Packaged in '.count($templates).' templates.');
 */
 
 /* add chunks */
+/*
 $chunks = include $sources['data'].'transport.chunks.php';
 if (!is_array($chunks)) {
     //$modx->log(modX::LOG_LEVEL_ERROR,'Could not package in chunks.');
 } else {
     $category->addMany($chunks);
 }
-
+*/
 /* add plugins */
 $plugins = include $sources['data'].'transport.plugins.php';
 if (!is_array($plugins)) {
@@ -76,12 +77,14 @@ else{
 }
 
 /* add snippets */
+/*
 $snippets = include $sources['data'].'transport.snippets.php';
 if (!is_array($snippets)) {
     //$modx->log(modX::LOG_LEVEL_ERROR,'Could not package in snippets.');
 } else {
     $category->addMany($snippets);
 }
+*/
 
 /* create category vehicle */
 $attr = array(
@@ -166,6 +169,6 @@ $mtime= explode(" ", $mtime);
 $mtime= $mtime[1] + $mtime[0];
 $tend= $mtime;
 $totalTime= ($tend - $tstart);
-$totalTime= sprintf("%2.4f s", $totalTime);
+//$totalTime= sprintf("%2.4f s", $totalTime);
 
 exit ();
